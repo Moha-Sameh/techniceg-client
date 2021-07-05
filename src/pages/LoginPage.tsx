@@ -1,11 +1,9 @@
+import { observer } from "mobx-react";
 import React from "react";
+import SignIn from "../components/LoginComponent";
 
 const LoginPage: React.FC = () => {
-  return (
-    <div>
-      <h1>Hello</h1>
-    </div>
-  );
+  return <SignIn />;
 };
 
-export default LoginPage;
+export default observer(LoginPage);

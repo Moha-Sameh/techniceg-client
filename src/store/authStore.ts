@@ -5,13 +5,14 @@ import decode from "jwt-decode";
 class AuthStore {
   user = null;
   loading = true;
+
   constructor() {
     makeAutoObservable(this);
   }
   setUser = (token: string) => {
     localStorage.setItem("myToken", token);
-    this.user = decode(token);
     instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    this.user = decode(token);
   };
 
   signup = async (userData: { [x: string]: string | Blob }) => {
@@ -31,14 +32,14 @@ class AuthStore {
       this.setUser(response.data.token);
       this.loading = false;
     } catch (error) {
-      throw new Error(" Invalid request");
+      console.log(error);
     }
   };
 
   signout = () => {
     this.user = null;
+    this.loading = true;
     localStorage.removeItem("myToken");
-    localStorage.removeItem("count");
     delete instance.defaults.headers.common.Authorization;
   };
   checkForToken = () => {
