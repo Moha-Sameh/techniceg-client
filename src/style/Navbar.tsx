@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
+
   const history = useHistory();
+
   const handleLogout = () => {
     authStore.signout();
     if (!authStore.user) history.push("/");
@@ -44,10 +46,19 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             Todo
           </Typography>
-          <AddCircleIcon />
-          <Button color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
+
+          {authStore.user ? (
+            <>
+              <Button color="inherit">
+                <AddCircleIcon />
+              </Button>
+              <Button color="inherit" onClick={handleLogout}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Button color="inherit">Register</Button>
+          )}
         </Toolbar>
       </AppBar>
     </div>

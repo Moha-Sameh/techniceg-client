@@ -19,6 +19,18 @@ class TaskStore {
   constructor() {
     makeAutoObservable(this);
   }
+
+  createTask = async (taskData: { [x: string]: string | Blob }) => {
+    try {
+      const formData = new FormData();
+      for (const key in taskData) formData.append(key, taskData[key]);
+      await instance.post("/tasks", formData);
+      this.getTasks();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   getTasks = async () => {
     try {
       const response = await instance.get("/tasks");
@@ -27,7 +39,7 @@ class TaskStore {
         this.loading = false;
       });
     } catch (error) {
-      throw new Error("Invalid request");
+      console.error(error);
     }
   };
   updateTask = async (taskDetails: ITaskData, history: any) => {
@@ -42,7 +54,7 @@ class TaskStore {
       if (error.response.status === 401) {
         history.push("/");
       } else {
-        throw Error("Invalid request");
+        console.error(error);
       }
     }
   };

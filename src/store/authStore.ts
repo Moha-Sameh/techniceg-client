@@ -10,6 +10,16 @@ interface ITokenResponse {
   refreshToken: string;
 }
 
+interface IDecodedRefreshToken {
+  id: number;
+  exp: number;
+}
+
+interface IDecodedToken extends IDecodedRefreshToken {
+  username: string;
+  role: string;
+}
+
 class AuthStore {
   user = null;
 
@@ -23,7 +33,7 @@ class AuthStore {
     this.user = decode(token);
   };
 
-  //User tokens
+  // User tokens
   setTokens = (token: string, refreshToken: string) => {
     localStorage.setItem(TOKEN, token);
     localStorage.setItem(REFRESH_TOKEN, refreshToken);
@@ -82,7 +92,7 @@ class AuthStore {
     const token = this.getToken();
     if (token) {
       const currentTime = Date.now();
-      const decodedToken: any = decode(token);
+      const decodedToken: IDecodedToken = decode(token);
       if (decodedToken.exp < currentTime) {
         this.checkForRefreshToken();
       }
@@ -93,7 +103,7 @@ class AuthStore {
     const refreshToken = this.getRefreshToken();
     if (refreshToken) {
       const currentTime = Date.now();
-      const decodedRefreshToken: any = decode(refreshToken);
+      const decodedRefreshToken: IDecodedRefreshToken = decode(refreshToken);
       if (decodedRefreshToken.exp > currentTime) {
         this.refreshToken();
         return;
