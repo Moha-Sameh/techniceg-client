@@ -1,4 +1,5 @@
 import { Button } from "@material-ui/core";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,7 +26,7 @@ export default function Navbar() {
   const history = useHistory();
   const handleLogout = () => {
     authStore.signout();
-    if (authStore.loading) history.push("/");
+    if (!authStore.user) history.push("/");
   };
 
   return (
@@ -43,6 +44,7 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             Todo
           </Typography>
+          <AddCircleIcon />
           <Button color="inherit" onClick={handleLogout}>
             Logout
           </Button>

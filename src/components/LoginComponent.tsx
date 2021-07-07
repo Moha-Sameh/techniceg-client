@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
     e.target.reset();
     e.preventDefault();
     await authStore.signin(user);
-    if (!authStore.loading) {
+    if (authStore.user) {
       history.push("/task");
     } else {
       alert("Login Failed");
