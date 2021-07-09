@@ -21,7 +21,7 @@ interface IDecodedToken extends IDecodedRefreshToken {
 }
 
 class AuthStore {
-  user = null;
+  user: IDecodedToken | null = null;
 
   constructor() {
     makeAutoObservable(this);

@@ -20,11 +20,9 @@ class TaskStore {
     makeAutoObservable(this);
   }
 
-  createTask = async (taskData: { [x: string]: string | Blob }) => {
+  createTask = async (taskData: ITaskData | any) => {
     try {
-      const formData = new FormData();
-      for (const key in taskData) formData.append(key, taskData[key]);
-      await instance.post("/tasks", formData);
+      await instance.post("/tasks", taskData);
       this.getTasks();
     } catch (error) {
       console.error(error);

@@ -12,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { observer } from "mobx-react";
 import { ITaskData } from "../store/taskStore";
+import authStore from "../store/authStore";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,13 +70,9 @@ const TodoRow: React.FC<ITodoRowProps> = ({ task, onChange }) => {
   const handleOpen = () => {
     setOpen(true);
   };
+
   return (
-    <Accordion
-      onChange={(e, expanded) => {
-        if (expanded) {
-        }
-      }}
-    >
+    <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1c-content"
@@ -86,19 +83,49 @@ const TodoRow: React.FC<ITodoRowProps> = ({ task, onChange }) => {
         </div>
         <div className={classes.column}>
           <FormControl className={classes.secondaryHeading}>
-            <Select
-              labelId="demo-controlled-open-select-label"
-              id="demo-controlled-open-select"
-              open={open}
-              onClose={handleClose}
-              onOpen={handleOpen}
-              value={task.status}
-              onChange={onChange}
-            >
-              <MenuItem value="Todo">Todo</MenuItem>
-              <MenuItem value="InProgress">In-Progress</MenuItem>
-              <MenuItem value="Test">Test</MenuItem>
-            </Select>
+            {authStore.user?.role === "Freelancer" ? (
+              <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                value={task.status}
+                onChange={onChange}
+              >
+                <MenuItem value="Todo">Todo</MenuItem>
+                <MenuItem value="InProgress">In-Progress</MenuItem>
+                <MenuItem value="Test">Test</MenuItem>
+                <MenuItem value="Done" disabled>
+                  Done
+                </MenuItem>
+                <MenuItem value="Paid" disabled>
+                  Paid
+                </MenuItem>
+              </Select>
+            ) : (
+              <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                value={task.status}
+                onChange={onChange}
+              >
+                <MenuItem value="Todo" disabled>
+                  Todo
+                </MenuItem>
+                <MenuItem value="InProgress" disabled>
+                  In-Progress
+                </MenuItem>
+                <MenuItem value="Test" disabled>
+                  Test
+                </MenuItem>
+                <MenuItem value="Done">Done</MenuItem>
+                <MenuItem value="Paid">Paid</MenuItem>
+              </Select>
+            )}
           </FormControl>
         </div>
       </AccordionSummary>

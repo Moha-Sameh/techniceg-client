@@ -12,3 +12,7 @@ Starting of with the client side by installing most of the packages needed for d
 Today I have completed the Authentication Login - Logout, recived the token and decoded it.
 
 I have used mobx for state management because it is simple and scalable. Aslo it is stable.
+
+## Add More menu items
+
+Modified authStore, Created new button to create task. removed formData from taskStore

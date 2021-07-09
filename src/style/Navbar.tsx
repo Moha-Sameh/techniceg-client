@@ -1,5 +1,4 @@
 import { Button } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
@@ -49,9 +48,6 @@ export default function Navbar() {
 
           {authStore.user ? (
             <>
-              <Button color="inherit">
-                <AddCircleIcon />
-              </Button>
               <Button color="inherit" onClick={handleLogout}>
                 Logout
               </Button>
