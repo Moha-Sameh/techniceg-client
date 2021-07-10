@@ -54,7 +54,7 @@ class AuthStore {
 
   refreshToken = async () => {
     try {
-      const refreshToken = this.getRefreshToken();
+      const refreshToken = async () => await this.getRefreshToken();
       const response = await instance.post("/refresh", refreshToken);
       this.setTokens(response.data.token, response.data.refreshToken);
     } catch (error) {

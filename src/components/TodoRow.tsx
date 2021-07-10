@@ -131,23 +131,17 @@ const TodoRow: React.FC<ITodoRowProps> = ({ task, onChange }) => {
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         <div className={classes.column}>
-          <Typography variant="caption">
-            {task.description}
+          <Typography variant="caption" style={{ fontSize: 20 }}>
+            Description: {task.description}
             <br />
           </Typography>
-          <Typography variant="caption">
-            {task.price}
+          <Typography variant="caption" style={{ color: "red", fontSize: 16 }}>
+            Price: {task.price}
             <br />
           </Typography>
         </div>
       </AccordionDetails>
       <Divider />
-      <AccordionActions>
-        <Button size="small">Cancel</Button>
-        <Button size="small" color="primary">
-          Edit
-        </Button>
-      </AccordionActions>
     </Accordion>
   );
 };
